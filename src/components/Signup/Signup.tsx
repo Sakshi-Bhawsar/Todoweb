@@ -2,6 +2,8 @@ import { useState } from "react";
 import { IUser } from "../../difination/user"
 import { Preahvihear } from "next/font/google";
 import { signup } from "@/queries/signup";
+import { useRouter } from "next/navigation"
+
 
 const Signup = () => {
     const [form, setForm] = useState<IUser>({
@@ -9,6 +11,8 @@ const Signup = () => {
         email: '',
         password: ''
     });
+    const router = useRouter();
+    const[err,setErr]  = useState('')
 
     const onChnage = (e: any) => {
         const { name, value } = e.target;
@@ -18,19 +22,25 @@ const Signup = () => {
         }));
     }
 
-    const handleSubmit =(formData:IUser)=>{
-        
-        console.log("fun called",formData)
-        signup(formData)
+    const handleSubmit = async (formData: IUser) => {
+        console.log("fun called", formData)
+        const data = await signup(formData)
+        console.log(data,"data")
+        if (data?.sucess == true) {
+            setErr('')
+            router.push('/login')
+        }else{
+            setErr(data.message || "something want wrong tru again leter")
+        }
     }
 
     console.log(form, "form")
     return (
         <form className="flex flex-col items-center justify-center "
-         onSubmit={(e)=>{
-             e.preventDefault();
-         handleSubmit(form);
-         } }>
+            onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(form);
+            }}>
             <div className=' rounded-lg shadow-2xl  p-14'>
 
                 <p className="text-sm text-gray-400 text-center  py-4">
@@ -81,9 +91,9 @@ const Signup = () => {
                     <button className=' px-6 py-2  bg-indigo-500 text-white text-sm hover:shadow-md  rounded-2xl cursor-pointer'>Sign up</button>
                     <p>Already a member ? <span className=' text-indigo-600 hover:underline cursor-pointer'>login</span> </p>
                 </div>
+               <p className="text-sm text-red-500 ">{err}</p>
 
             </div>
-
         </form>
     )
 }

@@ -4,7 +4,7 @@ import { fixedMargine, marginTop } from "@/constants/style";
 
 const LoginPage =()=>{
     return(
-        <div className={`${fixedMargine} ${marginTop}`}>
+        <div className={` bg-sky-100  h-screen`}>
             <Login/>
         </div>
     )
