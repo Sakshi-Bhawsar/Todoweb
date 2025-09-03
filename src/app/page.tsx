@@ -1,8 +1,12 @@
+'use client'
 
-export default function Home() {
+import Home from "@/components/Home/Home";
+import { fixedMargine, marginTop } from "@/constants/style";
+
+export default function HomePage() {
   return (
-    <div className="">
-    
+    <div className=''>
+        <Home/>
     </div>
   );
 }

@@ -1,8 +1,14 @@
 import { login } from "@/queries/signup";
+import { addUser } from "@/slice/userSlice";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+    const router = useRouter()
+    const dispatch = useDispatch()
     const [loginUser,setLoginUser]= useState({
          email: '',
         password: ''
@@ -16,6 +22,11 @@ const Login = () => {
     }
     const loginClick =async(email:string,password:string)=>{
           const res = await login(email,password)
+          if(res.sucess){
+            console.log(res.user)
+             dispatch(addUser(res.user))
+              router.push("/")
+          }
           console.log(res)
     }
 
@@ -59,6 +70,7 @@ const Login = () => {
                     <div className="card-actions py-2">
                         <button className=" rounded-lg cursor-pointer px-6 py-2 hover:shadow-md bg-green-200" onClick={()=>loginClick(loginUser.email,loginUser.password)}>Login</button>
                     </div>
+                    <p className="py-2  text-sm">do not have account ? <Link href='/signup'> <span className=" text-indigo-500 hover:underline"> signup</span></Link></p>
                 </div>
             </div>
         </div>

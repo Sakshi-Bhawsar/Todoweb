@@ -3,6 +3,7 @@ import { IUser } from "../../difination/user"
 import { Preahvihear } from "next/font/google";
 import { signup } from "@/queries/signup";
 import { useRouter } from "next/navigation"
+import Link from "next/link";
 
 
 const Signup = () => {
@@ -89,7 +90,7 @@ const Signup = () => {
 
                 <div className='flex flex-col w-full items-end mt-4 gap-2'>
                     <button className=' px-6 py-2  bg-indigo-500 text-white text-sm hover:shadow-md  rounded-2xl cursor-pointer'>Sign up</button>
-                    <p>Already a member ? <span className=' text-indigo-600 hover:underline cursor-pointer'>login</span> </p>
+                    <p>Already a member ? <Link href={'/login'}> <span className=' text-indigo-600 hover:underline cursor-pointer'>login</span> </Link></p>
                 </div>
                <p className="text-sm text-red-500 ">{err}</p>
 
